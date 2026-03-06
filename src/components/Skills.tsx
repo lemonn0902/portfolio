@@ -1,7 +1,9 @@
 "use client";
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useTheme } from "next-themes";
 import { easeOutExpo } from "@/lib/motion";
+import LogoLoop from "./LogoLoop";
 
 // ── Data ────────────────────────────────────────────────────────────────────
 const CATEGORIES = [
@@ -61,6 +63,11 @@ const CATEGORIES = [
     ],
   },
 ];
+
+// ── Flat logo list for the marquee strip ────────────────────────────────────
+const ALL_LOGOS = CATEGORIES.flatMap((cat) =>
+  cat.skills.map((skill) => ({ src: skill.icon, alt: skill.name }))
+);
 
 // ── Chip component ───────────────────────────────────────────────────────────
 function SkillChip({
@@ -124,6 +131,8 @@ function SkillChip({
 export default function Skills() {
   const ref     = useRef<HTMLElement>(null);
   const visible = useInView(ref, { once: true, amount: 0.08 });
+  const { resolvedTheme } = useTheme();
+  const fadeColor = resolvedTheme === "light" ? "#fafafa" : "#0c0c0e";
 
   return (
     <section id="skills" ref={ref} style={{ padding: "120px 0" }}>
@@ -148,6 +157,27 @@ export default function Skills() {
           >
             Skills
           </h2>
+        </motion.div>
+
+        {/* Logo marquee strip */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={visible ? { opacity: 1 } : {}}
+          transition={{ duration: 0.6, ease: easeOutExpo, delay: 0.15 }}
+          style={{ marginBottom: 56, overflow: "hidden" }}
+        >
+          <LogoLoop
+            logos={ALL_LOGOS}
+            speed={70}
+            direction="left"
+            logoHeight={34}
+            gap={44}
+            hoverSpeed={20}
+            scaleOnHover
+            fadeOut
+            fadeOutColor={fadeColor}
+            ariaLabel="Tech stack logos"
+          />
         </motion.div>
 
         {/* Categories */}
