@@ -99,12 +99,13 @@ export default function About() {
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 8, overflow: "hidden" }}>
 
               {/* Avatar */}
-              <div style={{ position: "relative", height: 280, borderBottom: "1px solid var(--color-border)", overflow: "hidden" }}>
+              <div style={{ borderBottom: "1px solid var(--color-border)", display: "flex", justifyContent: "center", background: "var(--color-surface-raised)" }}>
                 <Image
                   src="/avatar.jpg"
                   alt="Shreya Srivastava"
-                  fill
-                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  width={400}
+                  height={500}
+                  style={{ width: "100%", height: "auto", display: "block", objectFit: "contain" }}
                   priority
                   sizes="(max-width: 768px) 100vw, 400px"
                 />
