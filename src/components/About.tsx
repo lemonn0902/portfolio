@@ -1,5 +1,6 @@
 "use client";
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, useInView, useReducedMotion } from "framer-motion";
 import { easeOutExpo } from "@/lib/motion";
 
@@ -97,9 +98,16 @@ export default function About() {
           <motion.div variants={slideRight} initial="hidden" animate={visible ? "visible" : "hidden"}>
             <div style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", borderRadius: 8, overflow: "hidden" }}>
 
-              {/* Avatar placeholder */}
-              <div style={{ height: 200, background: "var(--color-surface-raised)", display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "1px solid var(--color-border)" }}>
-                <span style={{ fontFamily: "var(--font-dm-serif)", fontSize: 64, color: "var(--color-accent)", opacity: 0.5, letterSpacing: "0.1em" }}>S.S</span>
+              {/* Avatar */}
+              <div style={{ position: "relative", height: 280, borderBottom: "1px solid var(--color-border)", overflow: "hidden" }}>
+                <Image
+                  src="/avatar.jpg"
+                  alt="Shreya Srivastava"
+                  fill
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  priority
+                  sizes="(max-width: 768px) 100vw, 400px"
+                />
               </div>
 
               {/* Info rows */}
